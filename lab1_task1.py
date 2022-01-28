@@ -47,8 +47,8 @@ def print_sensors():
 
     print("left position sensor: {0:.4f}".format(left_position_sensor))
     print("right position sensor: {0:.4f}".format(right_position_sensor))
-    print("left speed sensor: {0:.4f}".format(left_speed))
-    print("right speed sensor: {0:.4f}\n".format(right_speed))
+    print("left speed sensor: {0:.4f} revolutions per second".format(left_speed))
+    print("right speed sensor: {0:.4f} revolutions per second\n".format(right_speed))
 
 
 def step():
@@ -74,8 +74,11 @@ def getCounts():
 def getSpeeds():
     global previous_left_position_sensor, previous_right_position_sensor, left_position_sensor, right_position_sensor
 
-    left_speed = (left_position_sensor - previous_left_position_sensor) / (timestep / 1000)
-    right_speed = (right_position_sensor - previous_right_position_sensor) / (timestep / 1000)
+    left_speed = (left_position_sensor - previous_left_position_sensor) / (timestep / 1000)  # rad/s
+    right_speed = (right_position_sensor - previous_right_position_sensor) / (timestep / 1000)  # rad/s
+
+    left_speed /= math.pi  # rps
+    right_speed /= math.pi  # rps
 
     return left_speed, right_speed
 
